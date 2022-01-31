@@ -1,0 +1,197 @@
+<% if (req.user) { %>
+
+<style>
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: none;
+}
+.table td, .table th {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: none;
+}
+/* input{
+  border:none;
+
+  background: transparent;
+}
+input:focus { 
+        outline: none !important;
+        border-color: none;
+        box-shadow: none;
+    } */
+</style>
+<div class="container pt-5 pb-5" id="adddisplay" style="display: none;">
+    <h1>Add User</h1>
+    <hr/>
+    <!-- <ajax-form action="title/submit" :syncing.sync="syncing" :cloud-error.sync="cloudError" :form-data="formData" :form-rules="formRules" :form-errors.sync="formErrors" @submitted="submittedForm()"> -->
+        <!-- <form action="submit" method="post"> -->
+          <div class="form-outline mb-4" style="text-align: left;">
+            <label class="form-label" for="typeEmailX-2">Username</label>
+            <input type="text" id="typeEmailX-2" name="name" class="form-control form-control-lg" />
+          </div>
+
+          <div class="form-outline mb-4" style="text-align: left;">
+            <label class="form-label" for="typeEmailX-2">Email</label>
+            <input type="email" id="typeEmailX-2" name="email" class="form-control form-control-lg" />
+          </div>
+
+          <div class="form-outline mb-4" style="text-align: left;">
+            <label class="form-label" for="typeEmailX-2">Mobile Number</label>
+            <input type="number" id="mob-number" name="number" class="form-control form-control-lg" />
+          </div>
+
+          <div class="form-outline mb-4" style="text-align: left;">
+            <label class="form-label" for="typePasswordX-2">Password</label>
+            <input type="password" name="password" id="typePasswordX-2" class="form-control form-control-lg" />
+          </div>
+
+      <div class="row">
+        <input type='hidden' name='_csrf' value='<%= _csrf %>'>
+        <div class="col-sm-6">
+          <div class="form-group text-left">
+            <a class="btn btn-outline-info" id="cancelback">Cancel</a>
+            <button type="submit" class="btn btn-dark" id="table_submit">Submit</button>
+          </div>
+        </div>
+      </div>
+  <!-- </form> -->
+    <!-- </ajax-form> -->
+  </div>
+<div class="container pt-5 mt-5">
+    <div class="buttons" style="float: right;">
+        <a class="btn btn-info" id="add-display">ADD User</a>
+      </div>
+
+      <div class="buttons" style="float: left;">
+        <a class="btn btn-primary" href="/export/excel">Export Excel</a>
+      </div>
+
+<table class="table table-bordered table-striped table-hover" style="border:1px solid #666;margin-top:30px;">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Number</th>
+        <th scope="col">Last Login</th>
+        <th scope="col">Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+  <% var i=1; 
+  <!-- console.log(controller)  -->
+  app.forEach(function(applicant){ 
+    %>
+    <tr>
+      <td><%= i %></td>
+      <td id="name_<%= applicant.id %>" data="<%= applicant.name %>"><%= applicant.name %>
+      </td>
+      <td id="email_<%= applicant.id %>" data="<%= applicant.email %>">
+        <%= applicant.email %>
+      </td>
+      <td id="number_<%= applicant.id %>" data="<%= applicant.number %>">
+        <%= applicant.number %>
+      </td>
+      <td id="time_<%= applicant.id %>">
+        <% if(applicant.login.length > 0){ %>
+        <%= applicant.login[0].logintime %>
+        <% } %>
+      </td>
+     <td>
+          <button type="submit" class="btn btn-success edit_but" data-id="<%= applicant.id %>">Edit</button>
+          <button type="submit" class="btn btn-danger delete_but" data-id="<%= applicant.id %>">Delete</button>
+
+      </td>
+
+  </tr>
+    <% i++;
+}); %>
+  </tbody>
+  </table>
+
+  <section>
+    <form method="post" enctype="multipart/form-data" id="new_ac" action="/table/img_upload">
+    <h2>Simple File Upload</h2>
+    <div class="file-upload">
+        <input id="file-s" type="file" name="avatar"/>
+        <label for="file-s">
+            <span>Filename</span>
+            <button>Choose File</button>
+        </label>
+    </div>
+    </form>
+</section>
+<div class="row" style="margin-bottom:100px;display: flex;flex-wrap: wrap;">
+  <% img.forEach(function(images){ %>
+  <div class="col-sm-3" style="margin-left:20x;">
+    <img src="/images/<%= images.path %>" style="width:200px;">
+  </div>
+  <% }); %>
+</div>
+
+<% } else { %>
+<a href="/">Login</a> | <a href="/signup">Register</a>
+<% } %>
+</div>
+
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap");
+:root {
+  --radius: 4px;
+  --trans: 250ms;
+  --color-file-input: #00b894;
+  --color-file-input-hover: #076e5a;
+  --color-file-input-contrast: #2d3436;
+  --color-file-input-hover-contrast: #dfe6e9;
+  --bg-light: #d1d8e0;
+  --bg-dark: #4b6584;
+}
+
+
+
+[data-grid] {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+  grid-auto-rows: 250px;
+  gap: 5px;
+  padding: 5px;
+}
+[data-grid] > section {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  place-items: center;
+  background: var(--bg-light);
+}
+[data-grid] > section div {
+  font-size: 1.5rem;
+}
+
+.file-upload {
+  border-radius: var(--radius);
+}
+.file-upload [type=file] {
+  display: none;
+}
+.file-upload span {
+  font-weight: 300;
+}
+.file-upload button {
+  all: unset;
+  pointer-events: none;
+  font-weight: 400;
+  background-color: var(--color-file-input);
+  border: 1px solid var(--color-file-input);
+  color: var(--color-file-input-contrast);
+}
+.file-upload span,
+.file-upload button {
+  transition: var(--trans);
+  padding: 0.3em 1em;
+}
+</style>

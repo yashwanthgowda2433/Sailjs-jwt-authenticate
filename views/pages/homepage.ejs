@@ -1,0 +1,31 @@
+<section class="vh-100" style="background-color: #508bfc;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+           <form method="post" action="/login">
+            <h3 class="mb-5">Sign in</h3>
+
+            <div class="form-outline mb-4" style="text-align: left;">
+              <label class="form-label" for="typeEmailX-2">Email</label>
+              <input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
+            </div>
+
+            <div class="form-outline mb-4" style="text-align: left;">
+              <label class="form-label" for="typePasswordX-2">Password</label>
+              <input type="password" name="password" id="typePasswordX-2" class="form-control form-control-lg" />
+            </div>
+
+           
+
+            <button class="btn btn-primary btn-lg btn-block" id="submitLogin" type="submit">Login</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/signup" class="link-danger">Register</a></p>
+
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
